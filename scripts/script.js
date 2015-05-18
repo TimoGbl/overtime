@@ -4,22 +4,32 @@
 var user = location.search.split('user=')[1];
 
 switch (user) {
-                case "timo":
-                    userId = 1499152;
-                    break;
-                case "tobi":
-                    userId = 1453319;
-                    break;
-                case "katha":
-                    userId = 1453320;
-                    break;
-                case "thomas":
-                    userId = 1453321;
-                    break;
-                case "jochen":
-                    userId = 1452905;
-                    break;
-            }
+    case "timo":
+        userId = 1499152;
+        var workHours = 8;
+        var workMinutes = 24;
+        break;
+    case "tobi":
+        userId = 1453319;
+        var workHours = 8;
+        var workMinutes = 0;
+        break;
+    case "katha":
+        userId = 1453320;
+        var workHours = 8;
+        var workMinutes = 24;
+        break;
+    case "thomas":
+        userId = 1453321;
+        var workHours = 8;
+        var workMinutes = 24;
+        break;
+    case "jochen":
+        userId = 1452905;
+        var workHours = 8;
+        var workMinutes = 24;
+        break;
+}
 
 // Other toggl variables
 var workspaceIdCodeatelier = 737047;
@@ -27,8 +37,6 @@ var apiTokenTimo = "08105c58030e79939b7dd3978e80a882";
 var encodedApiToken = btoa(apiTokenTimo + ":api_token");
 
 // Daily time to work
-var workHours = 8;
-var workMinutes = 24;
 var dailyWorktime = ((workHours * 60 * 60 * 1000) + (workMinutes * 60 * 1000));
 
 // Date range
@@ -77,6 +85,8 @@ var holidaysBW = [
     '04/03/2015',
     '04/06/2015',
     '05/01/2015',
+    '05/14/2015',
+    '05/25/2015',
     '06/04/2015',
     '10/03/2015',
     '11/01/2015',
