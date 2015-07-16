@@ -1,7 +1,8 @@
 // Variables
 
 // Get URL parameter user
-var user = location.search.split('user=')[1];
+var user = getURLParameter('user');
+var apiTokenTimo = getURLParameter('token');
 
 switch (user) {
     case "timo":
@@ -33,7 +34,6 @@ switch (user) {
 
 // Other toggl variables
 var workspaceIdCodeatelier = 737047;
-var apiTokenTimo = "08105c58030e79939b7dd3978e80a882";
 var encodedApiToken = btoa(apiTokenTimo + ":api_token");
 
 // Daily time to work
@@ -94,6 +94,10 @@ reloadBtn.addEventListener('click', reload, false);
 
 // ----------------------------------------------------------------------------------
 //Functions
+
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
 
 function createCORSRequest(method, url) {
     var xhr = new XMLHttpRequest();
