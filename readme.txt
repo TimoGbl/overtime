@@ -1,6 +1,8 @@
 # FAQ
+
 ## Wie benutze ich Overtime?
-URL Parameter ist user=name: z.B: timogoebel.me/toggl?user=timo
+Als URL Parameter muss user=name und token=APIToken mitgegeben werden: z.B: timogoebel.me/toggl?user=timo&token=12345677
+
 ### Verfügbare User
 - timo
 - tobi
