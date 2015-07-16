@@ -59,24 +59,6 @@ console.log('Bis: ' + yesterday);
 
 // Holiday that have to be extracted from business days
 var holidaysBW = [
-    // '2014.12.22',
-    // '2014.12.23',
-    // '2014.12.24',
-    // '2014.12.25',
-    // '2014.12.26',
-    // '2014.12.29',
-    // '2014.12.30',
-    // '2015.01.02',
-    // '2015, 01, 01',
-    // '2015, 01, 06',
-    // '2015, 04, 03',
-    // '2015, 04, 06',
-    // '2015, 05, 01',
-    // '2015, 06, 04',
-    // '2015, 10, 03',
-    // '2015, 11, 01',
-    // '2015, 12, 25',
-    // '2015, 12, 26',
     '12/24/2014',
     '12/25/2014',
     '12/26/2014',
@@ -167,6 +149,10 @@ function getOvertime(timeWorkedMilli){
     var workingDays = getWorkingDays(startDay, yesterday) - holidays;
     var timeToWorkMilli = dailyWorktime * workingDays;
     var overtimeMilli = timeWorkedMilli - (dailyWorktime * workingDays);
+    
+    //if (overtimeMilli > (dailyWorktime * 5)) {
+    //	overtimMilli = dailyWorktime + 5;
+    //}
 
     console.log('Zu arbeitende Tage: ' + workingDays);
     console.log('Zu arbeitende Zeit: ' + timeToWorkMilli);
@@ -179,7 +165,7 @@ function millisecondsToString(timeInMilliseconds){
     var hours = Math.floor(ms / 1000 / 60 /60);
     var overtimeString = "Du hast " + hours + " Überstunden.";
 
-    console.log("Nichtgerundete Überstunen: " + (ms / 1000 / 60 /60));
+    console.log("Nichtgerundete Überstunden: " + (ms / 1000 / 60 /60));
 
     return overtimeString;
 }
@@ -210,15 +196,3 @@ function insertOvertime(){
 function reload(){
     document.location.reload(true);
 }
-
-
-// ----------------------------------------------------------------------------------
-//Testing with fixed times
-//
-// function test(){
-//     var timeWorkedMilli = 151200000;
-//     console.log("Gearbeitete Zeit: " + timeWorkedMilli);
-//     var overtimeMilli = getOvertime(timeWorkedMilli);
-//     var overtimeString = millisecondsToString(overtimeMilli);
-//     overtimeTag.innerHTML = overtimeString;
-// }
