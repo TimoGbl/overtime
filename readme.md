@@ -17,4 +17,4 @@ Die Überstunden-Zahl wird vom 1.12.14 (erster Toggl Tag) bis inklusie gestern b
 Grundregel: Ein bezahlter Tag muss gestempelt werden. Also: normaler Arbeitstag, bezahlter Urlaubstag und Krankheitstag. Nicht gestempelt werden unbezahlte Tage. Wochenende, Feiertage und Überstunden abbummeln.
 
 ## Achtung Ausnahme!
-Da sowohl der 24.12. also auch der 31.12. nur ein halber Urlaubstag ist, habe ich den 24. im tool als Feiertag eingetragen. Es muss also am 24.12. nichts! und am 31.12. ein ganzer Urlaubstag gestempelt werden.
+Da sowohl der 24.12. also auch der 31.12. nur ein halber Urlaubstag ist, habe ich den 24. im tool als Feiertag eingetragen. Es muss also entweder am 24.12. nichts! und am 31.12. ein ganzer Urlaubstag gestempelt werden oder an beiden Tagen ein halber Tag.
