@@ -86,13 +86,6 @@ var reloadBtn = document.getElementById('reloadBtn');
 
 
 // ----------------------------------------------------------------------------------
-// Event listener
-
-window.addEventListener('load', insertOvertime, false);
-reloadBtn.addEventListener('click', reload, false);
-
-
-// ----------------------------------------------------------------------------------
 //Functions
 
 function getURLParameter(name) {
@@ -153,10 +146,6 @@ function getOvertime(timeWorkedMilli){
     var workingDays = getWorkingDays(startDay, yesterday) - holidays;
     var timeToWorkMilli = dailyWorktime * workingDays;
     var overtimeMilli = timeWorkedMilli - (dailyWorktime * workingDays);
-    
-    //if (overtimeMilli > (dailyWorktime * 5)) {
-    //	overtimMilli = dailyWorktime + 5;
-    //}
 
     console.log('Zu arbeitende Tage: ' + workingDays);
     console.log('Zu arbeitende Zeit: ' + timeToWorkMilli);
@@ -197,6 +186,19 @@ function insertOvertime(){
     };
 }
 
-function reload(){
-    document.location.reload(true);
-}
+// ----------------------------------------------------------------------------------
+//React Stuff
+
+var Overtime = React.createClass({
+  render: function() {
+    return (
+      <h1 className="overtime">
+        Hello, world! I am a CommentBox.
+      </h1>
+    );
+  }
+});
+React.render(
+  <Overtime />,
+  document.getElementById('siteWrap')
+);
