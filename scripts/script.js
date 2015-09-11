@@ -41,7 +41,7 @@ var dailyWorktime = ((workHours * 60 * 60 * 1000) + (workMinutes * 60 * 1000));
 
 // Date range
 // Get start date
-var startDay = new Date(2014,11, 1); // Months starts at 0 = January
+var startDay = new Date(2015,8, 1); // Months starts at 0 = January
 
 // Get end date = yesterday
 var yesterday = new Date();
@@ -59,17 +59,17 @@ console.log('Bis: ' + yesterday);
 
 // Holiday that have to be extracted from business days
 var holidaysBW = [
-    '12/24/2014',
-    '12/25/2014',
-    '12/26/2014',
-    '01/01/2015',
-    '01/06/2015',
-    '04/03/2015',
-    '04/06/2015',
-    '05/01/2015',
-    '05/14/2015',
-    '05/25/2015',
-    '06/04/2015',
+    // '12/24/2014',
+    // '12/25/2014',
+    // '12/26/2014',
+    // '01/01/2015',
+    // '01/06/2015',
+    // '04/03/2015',
+    // '04/06/2015',
+    // '05/01/2015',
+    // '05/14/2015',
+    // '05/25/2015',
+    // '06/04/2015',
     '10/03/2015',
     '11/01/2015',
     '12/24/2015',
@@ -77,7 +77,7 @@ var holidaysBW = [
     '12/26/2015'
 ];
 
-var url = 'https://toggl.com/reports/api/v2/summary?user_agent=codeatelier&workspace_id=' + workspaceIdCodeatelier + '&since=2014-12-01&until=' + endDateString + '&user_ids=' + userId;
+var url = 'https://toggl.com/reports/api/v2/summary?user_agent=codeatelier&workspace_id=' + workspaceIdCodeatelier + '&since=2015-09-01&until=' + endDateString + '&user_ids=' + userId;
 var method = 'GET';
 
 // HTML elements
@@ -120,13 +120,13 @@ function getWorkingDays(startDate, endDate){
     var workingDays = 0;
 
     var currentDate = startDate;
-    while (currentDate <= endDate)  {  
+    while (currentDate <= endDate)  {
 
         var weekDay = currentDate.getDay();
         if(weekDay !== 0 && weekDay != 6)
             workingDays++;
 
-         currentDate.setDate(currentDate.getDate()+1); 
+         currentDate.setDate(currentDate.getDate()+1);
     }
 
     return workingDays;
@@ -153,7 +153,7 @@ function getOvertime(timeWorkedMilli){
     var workingDays = getWorkingDays(startDay, yesterday) - holidays;
     var timeToWorkMilli = dailyWorktime * workingDays;
     var overtimeMilli = timeWorkedMilli - (dailyWorktime * workingDays);
-    
+
     //if (overtimeMilli > (dailyWorktime * 5)) {
     //	overtimMilli = dailyWorktime + 5;
     //}
