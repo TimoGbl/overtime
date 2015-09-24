@@ -2,7 +2,8 @@
 
 // Get URL parameter user
 var user = getURLParameter('user');
-var apiTokenTimo = getURLParameter('token');
+var apiToken = getURLParameter('token');
+var userId;
 
 switch (user) {
     case "timo":
@@ -34,10 +35,10 @@ switch (user) {
 
 // Other toggl variables
 var workspaceIdCodeatelier = 737047;
-var encodedApiToken = btoa(apiTokenTimo + ":api_token");
+var encodedApiToken = btoa(apiToken + ":api_token");
 
 // Daily time to work
-var dailyWorktime = ((workHours * 60 * 60 * 1000) + (workMinutes * 60 * 1000));
+var dailyWorktimeMilli = ((workHours * 60 * 60 * 1000) + (workMinutes * 60 * 1000));
 
 // Date range
 // Get start date
@@ -59,25 +60,20 @@ console.log('Bis: ' + yesterday);
 
 // Holiday that have to be extracted from business days
 var holidaysBW = [
-    // '12/24/2014',
-    // '12/25/2014',
-    // '12/26/2014',
-    // '01/01/2015',
-    // '01/06/2015',
-    // '04/03/2015',
-    // '04/06/2015',
-    // '05/01/2015',
-    // '05/14/2015',
-    // '05/25/2015',
-    // '06/04/2015',
-    '10/03/2015',
-    '11/01/2015',
+    // '10/03/2015',
+    // '11/01/2015',
     '12/24/2015',
     '12/25/2015',
     '12/26/2015'
 ];
 
-var url = 'https://toggl.com/reports/api/v2/summary?user_agent=codeatelier&workspace_id=' + workspaceIdCodeatelier + '&since=2015-09-01&until=' + endDateString + '&user_ids=' + userId;
+var url = 'https://toggl.com/reports/api/v2/summary?user_agent=codeatelier&workspace_id=' +
+    workspaceIdCodeatelier +
+    '&since=2015-09-01&until=' +
+    endDateString +
+    '&user_ids=' +
+    userId;
+
 var method = 'GET';
 
 // HTML elements
@@ -85,18 +81,23 @@ var overtimeTag = document.getElementById('overtime');
 var reloadBtn = document.getElementById('reloadBtn');
 
 
-// ----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Event listener
 
 window.addEventListener('load', insertOvertime, false);
 reloadBtn.addEventListener('click', reload, false);
 
 
-// ----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //Functions
 
 function getURLParameter(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+  return decodeURIComponent(
+        (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)')
+            .exec(location.search)||[,""])[1]
+            .replace(/\+/g, '%20')
+        ) ||
+        null;
 }
 
 function createCORSRequest(method, url) {
@@ -151,12 +152,8 @@ function getpastHolidays(holidaysBW){
 function getOvertime(timeWorkedMilli){
     var holidays = getpastHolidays(holidaysBW);
     var workingDays = getWorkingDays(startDay, yesterday) - holidays;
-    var timeToWorkMilli = dailyWorktime * workingDays;
-    var overtimeMilli = timeWorkedMilli - (dailyWorktime * workingDays);
-
-    //if (overtimeMilli > (dailyWorktime * 5)) {
-    //	overtimMilli = dailyWorktime + 5;
-    //}
+    var timeToWorkMilli = dailyWorktimeMilli * workingDays;
+    var overtimeMilli = timeWorkedMilli - (dailyWorktimeMilli * workingDays);
 
     console.log('Zu arbeitende Tage: ' + workingDays);
     console.log('Zu arbeitende Zeit: ' + timeToWorkMilli);
@@ -166,8 +163,12 @@ function getOvertime(timeWorkedMilli){
 
 function millisecondsToString(timeInMilliseconds){
     var ms = timeInMilliseconds;
-    var hours = Math.floor(ms / 1000 / 60 /60);
-    var overtimeString = "Du hast " + hours + " Überstunden.";
+    var hoursWithDecimal = ms / 1000 / 60 /60;
+    var hours = parseInt(hoursWithDecimal);
+    var decimals = hoursWithDecimal - hours;
+    var minutes = 60 * decimals;
+    minutes = parseInt(minutes);
+    var overtimeString = "Du hast " + hours + " Stunden und " + minutes + " Minuten zu viel gearbeitet.";
 
     console.log("Nichtgerundete Überstunden: " + (ms / 1000 / 60 /60));
 
